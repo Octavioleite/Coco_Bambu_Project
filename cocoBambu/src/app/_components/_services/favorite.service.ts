@@ -12,18 +12,22 @@ export class FavoriteService {
     return favorites ? JSON.parse(favorites) : [];
   }
 
-  addFavorite(book: FavoriteBook, rating: number): void {
+  addFavorite(book: FavoriteBook, rating: number, mydescibre: string): void {
     const favorites = this.getFavorites();
 
     const existingBook = favorites.find(fav => fav.title === book.title && fav.authors.join(', ') === book.authors.join(', '));
     if (existingBook) {
       existingBook.rating = rating;
+      existingBook.mydescibre = mydescibre;
     } else {
+      book.mydescibre = mydescibre;
       book.rating = rating;
       favorites.push(book);
     }
+
     localStorage.setItem(this.favoritesKey, JSON.stringify(favorites));
   }
+
 
   removeFavorite(book: FavoriteBook): void {
     let favorites = this.getFavorites();

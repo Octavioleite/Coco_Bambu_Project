@@ -18,6 +18,6 @@ export class FavoritesComponent implements OnInit {
 
   removeFavorite(book: FavoriteBook): void {
     this.favoriteService.removeFavorite(book);
-    this.favorites = this.favoriteService.getFavorites(); 
+    this.favorites = this.favoriteService.getFavorites();
   }
 }

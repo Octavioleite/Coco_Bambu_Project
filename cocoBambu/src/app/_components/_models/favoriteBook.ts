@@ -7,4 +7,5 @@ export interface FavoriteBook {
   };
   infoLink: string;
   rating?: number;
+  mydescibre: string;
 }

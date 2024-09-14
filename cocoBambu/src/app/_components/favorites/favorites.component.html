@@ -8,6 +8,8 @@
           <h5 class="card-title">{{ book.title }}</h5>
           <h6 class="card-subtitle mb-2 text-muted">Authors: {{ book.authors.join(', ') }}</h6>
           <p class="card-text">{{ book.description | slice:0:100 }}...</p>
+          <p><B>Minha nota:</B> {{ book.rating }}</p>
+          <p><B>Minha avaliação:</B> {{book.mydescibre}}</p>
           <a [href]="book.infoLink" class="btn btn-primary mt-auto" target="_blank">More Info</a>
           <button (click)="removeFavorite(book)" class="btn btn-danger mt-2">Remove from Favorites</button>
         </div>

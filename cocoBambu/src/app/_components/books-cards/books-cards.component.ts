@@ -14,6 +14,7 @@ export class BooksCardsComponent implements OnInit {
   searchQuery: string = '';
   searchAuthor: string = '';
   rating: number = 0;
+mydescibre: any;
 
   constructor(
     private userService: UserService,
@@ -36,8 +37,9 @@ export class BooksCardsComponent implements OnInit {
       authors: book.volumeInfo.authors,
       description: book.volumeInfo.description,
       imageLinks: book.volumeInfo.imageLinks,
-      infoLink: book.volumeInfo.infoLink
+      infoLink: book.volumeInfo.infoLink,
+      mydescibre: ''
     };
-    this.favoriteService.addFavorite(favoriteBook, this.rating);
+    this.favoriteService.addFavorite(favoriteBook, this.rating, this.mydescibre);
   }
 }

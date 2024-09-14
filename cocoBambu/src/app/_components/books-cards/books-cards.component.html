@@ -1,7 +1,7 @@
 <div class="container mt-4">
   <div class="input-group mb-3">
-    <input [(ngModel)]="searchQuery" type="text" class="form-control" placeholder="Search book title">
-    <input [(ngModel)]="searchAuthor" type="text" class="form-control" placeholder="Search author">
+    <input [(ngModel)]="searchQuery" type="text" class="form-control" placeholder="Search book title" (keyup.enter)="searchBooks()">
+    <input [(ngModel)]="searchAuthor" type="text" class="form-control" placeholder="Search author" (keyup.enter)="searchBooks()">
     <div class="input-group-append">
       <button class="btn btn-outline-secondary" (click)="searchBooks()">Search</button>
     </div>
@@ -16,7 +16,13 @@
           <h6 class="card-subtitle mb-2 text-muted">Authors: {{ book.volumeInfo.authors.join(', ') }}</h6>
           <p class="card-text">{{ book.volumeInfo.description | slice:0:100 }}...</p>
           <a [href]="book.volumeInfo.infoLink" class="btn btn-primary mt-auto" target="_blank">More Info</a>
-          <input [(ngModel)]="rating" type="number" min="0" max="5" step="1" placeholder="Rate (0-5)" class="form-control my-2">
+
+          <!-- Grupo de inputs para nota e avaliação -->
+          <div class="d-flex my-2 col-md-12">
+            <input [(ngModel)]="rating" type="number" min="0" max="5" step="1" placeholder="Rate (0-5)" class="form-control w-25 me-2">
+            <input [(ngModel)]="mydescibre" type="text" placeholder="Digite sua avaliação" class="form-control">
+          </div>
+
           <button (click)="addFavorite(book)" class="btn btn-success">Add to Favorites</button>
         </div>
       </div>
