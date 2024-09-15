@@ -9,7 +9,6 @@ export class FavoriteService {
   private favorites: FavoriteBook[] = [];
 
   constructor() {
-    // Load favorites from local storage or another source
     const storedFavorites = localStorage.getItem('favorites');
     if (storedFavorites) {
       this.favorites = JSON.parse(storedFavorites);
