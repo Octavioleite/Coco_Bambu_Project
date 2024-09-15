@@ -1,9 +1,8 @@
-// src/app/_services/user.service.ts
 import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment.development';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
+import { map, catchError, tap, switchMap } from 'rxjs/operators';
 import { BookApiResponse } from '../_models/bookApi';
 
 @Injectable({
@@ -29,7 +28,24 @@ export class UserService {
     const url = `${this.baseUrl}q=${query}&key=AIzaSyCXW-rNHP3T0nlOcPxydjEunwjhQ0mVRTw`;
 
     return this.http.get<BookApiResponse>(url).pipe(
-      map(response => response)
+      tap(() => console.log('Requisição de livros feita')),
+      switchMap(response => {
+        if (!response || !response.items) {
+          alert('Nenhum livro encontrado.')
+          //POSSO FAZER A ALTERAÇÃO PARA COLOCAR O ERRO MAIS BONITO VISUALMENTE.
+          return of({ items: [] });
+        }
+        return of(response);
+      }),
+      map(response => {
+        console.log('Resposta dos livros recebida:', response);
+        //POSSO FAZER A ALTERAÇÃO PARA COLOCAR QUE FOI ACHADO O LIVRO/AUTOR PESQUISADO
+        return response;
+      }),
+      catchError(err => {
+        console.error('Erro ao fazer a requisição:', err);
+        return of({ items: [] });
+      })
     );
   }
 }

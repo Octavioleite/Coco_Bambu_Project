@@ -16,23 +16,36 @@
           <h6 class="card-subtitle mb-2 text-muted">Authors: {{ book.volumeInfo.authors.join(', ') }}</h6>
           <p class="card-text">{{ book.volumeInfo.description | slice:0:100 }}...</p>
           <a [href]="book.volumeInfo.infoLink" class="btn btn-primary mt-auto" target="_blank">More Info</a>
-
-          
-          <div class="d-flex my-2 col-md-12">
-            <input [(ngModel)]="rating" type="number" min="0" max="5" step="1" placeholder="Rate (0-5)" class="form-control w-25 me-2">
-            <input [(ngModel)]="mydescibre" type="text" placeholder="Digite sua avaliação" class="form-control">
-            <select [(ngModel)]="mytags" class="form-select" aria-label="Default select example">
-              <option selected>Escolha uma tag</option>
-              <option value="ficcao">Ficção</option>
-              <option value="fantasia">Fantasia</option>
-              <option value="suspense">Suspense</option>
-              <option value="biografia">Biografia</option>
-            </select>
-
-          </div>
-
-          <button (click)="addFavorite(book)" class="btn btn-success">Add to Favorites</button>
+          <button class="btn btn-success mt-2" (click)="openModal(book)">Add to Favorites</button>
         </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="bookModal" tabindex="-1" aria-labelledby="bookModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="bookModalLabel">Add to Favorites</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="d-flex my-2">
+          <input [(ngModel)]="rating" type="number" min="0" max="5" step="1" placeholder="Rate (0-5)" class="form-control w-25 me-2">
+          <input [(ngModel)]="mydescibre" type="text" placeholder="Digite sua avaliação" class="form-control">
+          <select [(ngModel)]="mytags" class="form-select">
+            <option selected>Escolha uma tag</option>
+            <option value="ficcao">Ficção</option>
+            <option value="fantasia">Fantasia</option>
+            <option value="suspense">Suspense</option>
+            <option value="biografia">Biografia</option>
+          </select>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" (click)="addFavorite()">Save changes</button>
       </div>
     </div>
   </div>

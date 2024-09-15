@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FavoriteService } from '../_services/favorite.service';
 import { FavoriteBook } from '../_models/favoriteBook';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-favorites',
@@ -12,16 +13,19 @@ export class FavoritesComponent implements OnInit {
   filteredFavorites: FavoriteBook[] = [];
   editingBook: FavoriteBook | null = null;
   tagFilter: string = '';
+  private favoritesSubscription: Subscription = new Subscription();
 
   constructor(private favoriteService: FavoriteService) {}
 
   ngOnInit(): void {
-    this.favorites = this.favoriteService.getFavorites();
-    this.filteredFavorites = this.favorites;
+    this.favoritesSubscription = this.favoriteService.getFavorites().subscribe(favorites => {
+      this.favorites = favorites;
+      this.applyFilter();
+    });
   }
 
-  ngOnChanges(): void {
-    this.applyFilter();
+  ngOnDestroy(): void {
+    this.favoritesSubscription.unsubscribe();
   }
 
   editBook(book: FavoriteBook): void {
@@ -29,9 +33,10 @@ export class FavoritesComponent implements OnInit {
   }
 
   saveEdits(book: FavoriteBook): void {
-    this.favoriteService.updateFavorite(book);
-    this.editingBook = null;
-    this.applyFilter(); 
+    if (this.editingBook) {
+      this.favoriteService.updateFavorite(book);
+      this.editingBook = null;
+    }
   }
 
   cancelEdit(): void {
@@ -40,8 +45,6 @@ export class FavoritesComponent implements OnInit {
 
   removeFavorite(book: FavoriteBook): void {
     this.favoriteService.removeFavorite(book);
-    this.favorites = this.favoriteService.getFavorites();
-    this.applyFilter();
   }
 
   applyFilter(): void {

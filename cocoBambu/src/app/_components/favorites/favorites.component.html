@@ -1,46 +1,52 @@
 <div class="container mt-4">
   <h2>Favorites</h2>
+  <div class="row">
+    <!-- Filter Sidebar -->
+    <div class="col-md-3 mb-3">
+      <div class="mb-3">
+        <label for="tagFilter" class="form-label">Filter by Tag:</label>
+        <select [(ngModel)]="tagFilter" (change)="onTagFilterChange($event)" class="form-select" aria-label="Default select example">
+          <option>all tags</option>
+          <option value="ficcao">Ficção</option>
+          <option value="fantasia">Fantasia</option>
+          <option value="suspense">Suspense</option>
+          <option value="biografia">Biografia</option>
+        </select>
+      </div>
+    </div>
 
-  <!-- Tag Filter -->
-  <div class="mb-3">
-    <label for="tagFilter" class="form-label">Filter by Tag:</label>
-    <select [(ngModel)]="tagFilter" (change)="onTagFilterChange($event)" class="form-select" aria-label="Default select example">
-      <option>all tags</option>
-      <option value="ficcao">Ficção</option>
-      <option value="fantasia">Fantasia</option>
-      <option value="suspense">Suspense</option>
-      <option value="biografia">Biografia</option>
-    </select>
-  </div>
+    <!-- Favorites Content -->
+    <div class="col-md-9">
+      <div class="row mt-4">
+        <div *ngFor="let book of filteredFavorites" class="col-md-4 mb-4">
+          <div class="card" style="height: 100%;">
+            <img [src]="book.imageLinks.thumbnail" class="card-img-top" alt="{{ book.title }}">
+            <div class="card-body d-flex flex-column">
+              <h5 class="card-title">{{ book.title }}</h5>
+              <h6 class="card-subtitle mb-2 text-muted">Authors: {{ book.authors.join(', ') }}</h6>
+              <p class="card-text">{{ book.description | slice:0:100 }}...</p>
 
-  <div class="row mt-4">
-    <div *ngFor="let book of filteredFavorites" class="col-md-4 mb-4">
-      <div class="card" style="height: 100%;">
-        <img [src]="book.imageLinks.thumbnail" class="card-img-top" alt="{{ book.title }}">
-        <div class="card-body d-flex flex-column">
-          <h5 class="card-title">{{ book.title }}</h5>
-          <h6 class="card-subtitle mb-2 text-muted">Authors: {{ book.authors.join(', ') }}</h6>
-          <p class="card-text">{{ book.description | slice:0:100 }}...</p>
-
-          <div *ngIf="editingBook === book">
-            <p>
-              <strong>Minha nota:</strong>
-              <input type="number" [(ngModel)]="book.rating" min="0" max="5" step="1">
-            </p>
-            <p>
-              <strong>Minha avaliação:</strong>
-              <textarea [(ngModel)]="book.mydescibre"></textarea>
-            </p>
-            <button (click)="saveEdits(book)" class="btn btn-success">Save</button>
-            <button (click)="cancelEdit()" class="btn btn-secondary">Cancel</button>
-          </div>
-          <div *ngIf="editingBook !== book">
-            <p><strong>Minha nota:</strong> {{ book.rating }}</p>
-            <p><strong>Minha avaliação:</strong> {{ book.mydescibre }}</p>
-            <p><strong>Tag:</strong> {{ book.mytags }}</p>
-            <a [href]="book.infoLink" class="btn btn-primary mt-auto" target="_blank">More Info</a>
-            <button (click)="editBook(book)" class="btn btn-warning mt-2">Edit</button>
-            <button (click)="removeFavorite(book)" class="btn btn-danger mt-2">Remove from Favorites</button>
+              <div *ngIf="editingBook === book">
+                <p>
+                  <strong>Minha nota:</strong>
+                  <input type="number" [(ngModel)]="book.rating" min="0" max="5" step="1">
+                </p>
+                <p>
+                  <strong>Minha avaliação:</strong>
+                  <textarea [(ngModel)]="book.mydescibre"></textarea>
+                </p>
+                <button (click)="saveEdits(book)" class="btn btn-success">Save</button>
+                <button (click)="cancelEdit()" class="btn btn-secondary">Cancel</button>
+              </div>
+              <div *ngIf="editingBook !== book">
+                <p><strong>Minha nota:</strong> {{ book.rating }}</p>
+                <p><strong>Minha avaliação:</strong> {{ book.mydescibre }}</p>
+                <p><strong>Tag:</strong> {{ book.mytags }}</p>
+                <a [href]="book.infoLink" class="btn btn-primary mt-auto" target="_blank">More Info</a>
+                <button (click)="editBook(book)" class="btn btn-warning mt-2">Edit</button>
+                <button (click)="removeFavorite(book)" class="btn btn-danger mt-2">Remove from Favorites</button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
