@@ -9,11 +9,25 @@ import { FavoriteBook } from '../_models/favoriteBook';
 })
 export class FavoritesComponent implements OnInit {
   favorites: FavoriteBook[] = [];
+  editingBook: FavoriteBook | null = null;
 
   constructor(private favoriteService: FavoriteService) {}
 
   ngOnInit(): void {
     this.favorites = this.favoriteService.getFavorites();
+  }
+
+  editBook(book: FavoriteBook): void {
+    this.editingBook = book;
+  }
+
+  saveEdits(book: FavoriteBook): void {
+    this.favoriteService.updateFavorite(book); 
+    this.editingBook = null;
+  }
+
+  cancelEdit(): void {
+    this.editingBook = null;
   }
 
   removeFavorite(book: FavoriteBook): void {

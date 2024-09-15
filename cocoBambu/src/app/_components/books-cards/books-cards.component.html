@@ -10,17 +10,25 @@
   <div class="row">
     <div *ngFor="let book of books" class="col-md-4 mb-4">
       <div class="card" style="height: 100%;">
-        <img [src]="book.volumeInfo.imageLinks?.thumbnail" class="card-img-top" alt="{{ book.volumeInfo.title }}">
+        <img [src]="book.volumeInfo.imageLinks.thumbnail" class="card-img-top" alt="{{ book.volumeInfo.title }}">
         <div class="card-body d-flex flex-column">
           <h5 class="card-title">{{ book.volumeInfo.title }}</h5>
           <h6 class="card-subtitle mb-2 text-muted">Authors: {{ book.volumeInfo.authors.join(', ') }}</h6>
           <p class="card-text">{{ book.volumeInfo.description | slice:0:100 }}...</p>
           <a [href]="book.volumeInfo.infoLink" class="btn btn-primary mt-auto" target="_blank">More Info</a>
 
-          <!-- Grupo de inputs para nota e avaliação -->
+          
           <div class="d-flex my-2 col-md-12">
             <input [(ngModel)]="rating" type="number" min="0" max="5" step="1" placeholder="Rate (0-5)" class="form-control w-25 me-2">
             <input [(ngModel)]="mydescibre" type="text" placeholder="Digite sua avaliação" class="form-control">
+            <select [(ngModel)]="mytags" class="form-select" aria-label="Default select example">
+              <option selected>Escolha uma tag</option>
+              <option value="ficcao">Ficção</option>
+              <option value="fantasia">Fantasia</option>
+              <option value="suspense">Suspense</option>
+              <option value="biografia">Biografia</option>
+            </select>
+
           </div>
 
           <button (click)="addFavorite(book)" class="btn btn-success">Add to Favorites</button>

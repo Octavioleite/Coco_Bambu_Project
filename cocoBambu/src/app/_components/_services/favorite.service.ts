@@ -1,3 +1,4 @@
+// src/app/_services/favorite.service.ts
 import { Injectable } from '@angular/core';
 import { FavoriteBook } from '../_models/favoriteBook';
 
@@ -5,33 +6,39 @@ import { FavoriteBook } from '../_models/favoriteBook';
   providedIn: 'root'
 })
 export class FavoriteService {
-  private favoritesKey = 'favoriteBooks';
+  private favorites: FavoriteBook[] = [];
+
+  constructor() {
+    // Load favorites from local storage or another source
+    const storedFavorites = localStorage.getItem('favorites');
+    if (storedFavorites) {
+      this.favorites = JSON.parse(storedFavorites);
+    }
+  }
 
   getFavorites(): FavoriteBook[] {
-    const favorites = localStorage.getItem(this.favoritesKey);
-    return favorites ? JSON.parse(favorites) : [];
+    return this.favorites;
   }
 
-  addFavorite(book: FavoriteBook, rating: number, mydescibre: string): void {
-    const favorites = this.getFavorites();
-
-    const existingBook = favorites.find(fav => fav.title === book.title && fav.authors.join(', ') === book.authors.join(', '));
-    if (existingBook) {
-      existingBook.rating = rating;
-      existingBook.mydescibre = mydescibre;
-    } else {
-      book.mydescibre = mydescibre;
-      book.rating = rating;
-      favorites.push(book);
-    }
-
-    localStorage.setItem(this.favoritesKey, JSON.stringify(favorites));
+  addFavorite(book: FavoriteBook): void {
+    this.favorites.push(book);
+    this.saveFavorites();
   }
-
 
   removeFavorite(book: FavoriteBook): void {
-    let favorites = this.getFavorites();
-    favorites = favorites.filter(fav => !(fav.title === book.title && fav.authors.join(', ') === book.authors.join(', ')));
-    localStorage.setItem(this.favoritesKey, JSON.stringify(favorites));
+    this.favorites = this.favorites.filter(f => f !== book);
+    this.saveFavorites();
+  }
+
+  updateFavorite(updatedBook: FavoriteBook): void {
+    const index = this.favorites.findIndex(book => book.title === updatedBook.title);
+    if (index !== -1) {
+      this.favorites[index] = updatedBook;
+      this.saveFavorites();
+    }
+  }
+
+  private saveFavorites(): void {
+    localStorage.setItem('favorites', JSON.stringify(this.favorites));
   }
 }

@@ -14,7 +14,8 @@ export class BooksCardsComponent implements OnInit {
   searchQuery: string = '';
   searchAuthor: string = '';
   rating: number = 0;
-mydescibre: any;
+  mydescibre: string = '';
+  mytags: string = '';
 
   constructor(
     private userService: UserService,
@@ -34,12 +35,14 @@ mydescibre: any;
   addFavorite(book: Book) {
     const favoriteBook: FavoriteBook = {
       title: book.volumeInfo.title,
-      authors: book.volumeInfo.authors,
-      description: book.volumeInfo.description,
-      imageLinks: book.volumeInfo.imageLinks,
-      infoLink: book.volumeInfo.infoLink,
-      mydescibre: ''
+      authors: book.volumeInfo.authors || [],
+      description: book.volumeInfo.description || '',
+      imageLinks: book.volumeInfo.imageLinks || { thumbnail: '' },
+      infoLink: book.volumeInfo.infoLink || '',
+      rating: this.rating, 
+      mydescibre: this.mydescibre,
+      mytags: this.mytags
     };
-    this.favoriteService.addFavorite(favoriteBook, this.rating, this.mydescibre);
+    this.favoriteService.addFavorite(favoriteBook);
   }
 }
