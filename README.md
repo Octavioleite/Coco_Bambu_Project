@@ -6,6 +6,7 @@ Esta é uma aplicação Angular para explorar e gerenciar livros buscados e favo
 
 - **Busca de Livros**: Pesquise livros por título e/ou autor usando a API do Google Books.
 - **Gerenciamento de Favoritos**: Adicione, remova e edite livros na lista de favoritos (comentários e notas).
+- **Gerenciamento de erros pesquisa**: Função que dá um retorno para o usuário caso o nome do livro/ou autor for inexistente.
 - **Filtros**: Aplique filtros por tags para visualizar apenas os livros que correspondem aos critérios especificados.
 
 ## Tecnologias Utilizadas
