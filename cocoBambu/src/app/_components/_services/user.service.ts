@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { map, catchError, tap, switchMap } from 'rxjs/operators';
 import { BookApiResponse } from '../_models/bookApi';
+import { NotificationService } from '../_services/notification-service.service';  
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,7 @@ import { BookApiResponse } from '../_models/bookApi';
 export class UserService {
   baseUrl: string = environment.apiUrl;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private notificationService: NotificationService) {}
 
   getBookName(title: string, author: string): Observable<BookApiResponse> {
     let queryParts: string[] = [];
@@ -28,22 +29,22 @@ export class UserService {
     const url = `${this.baseUrl}q=${query}&key=AIzaSyCXW-rNHP3T0nlOcPxydjEunwjhQ0mVRTw`;
 
     return this.http.get<BookApiResponse>(url).pipe(
-      tap(() => console.log('Requisição de livros feita')),
+      tap(() => this.notificationService.showSuccess('Requisição de livros feita')),
       switchMap(response => {
-        if (!response || !response.items) {
-          alert('Nenhum livro encontrado.')
-          //POSSO FAZER A ALTERAÇÃO PARA COLOCAR O ERRO MAIS BONITO VISUALMENTE.
+        if (!response || !response.items || response.items.length === 0) {
+          this.notificationService.showError('Nenhum livro encontrado.');
           return of({ items: [] });
         }
         return of(response);
       }),
       map(response => {
-        console.log('Resposta dos livros recebida:', response);
-        //POSSO FAZER A ALTERAÇÃO PARA COLOCAR QUE FOI ACHADO O LIVRO/AUTOR PESQUISADO
+        if (response.items && response.items.length > 0) {
+
+        }
         return response;
       }),
       catchError(err => {
-        console.error('Erro ao fazer a requisição:', err);
+        this.notificationService.showError('Erro ao fazer a requisição.');
         return of({ items: [] });
       })
     );

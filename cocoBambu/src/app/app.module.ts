@@ -7,6 +7,8 @@ import { AppComponent } from './app.component';
 import { BooksCardsComponent } from './_components/books-cards/books-cards.component';
 import { FavoritesComponent } from './_components/favorites/favorites.component';
 import { NavBarComponent } from './_components/nav-bar/nav-bar.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
@@ -19,7 +21,9 @@ import { NavBarComponent } from './_components/nav-bar/nav-bar.component';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    BrowserAnimationsModule, 
+    MatSnackBarModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
