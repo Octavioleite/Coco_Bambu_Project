@@ -6,7 +6,7 @@ Esta é uma aplicação Angular para explorar e gerenciar livros buscados e favo
 
 - **Busca de Livros**: Pesquise livros por título e/ou autor usando a API do Google Books.
 - **Gerenciamento de Favoritos**: Adicione, remova e edite livros na lista de favoritos (comentários e notas).
-- **Gerenciamento de erros na pesquisa**: Função que dá um retorno para o usuário caso o nome do livro/ou autor for inexistente.
+- **Gerenciamento de erros na pesquisa**: Função que dá um retorno para o usuário caso o nome do livro ou autor for inexistente.
 - **Filtros**: Aplique filtros por tags para visualizar apenas os livros que correspondem aos critérios especificados.
 
 ## Tecnologias Utilizadas
@@ -41,9 +41,7 @@ Esta é uma aplicação Angular para explorar e gerenciar livros buscados e favo
 
 3. **Configure as Variáveis de Ambiente**
 
-    - Abra o arquivo `src/app/_services/UserService` e adicione sua chave de API do Google Books na variável const url = `${this.baseUrl}q=${query}&key=Coloque sua key aqui`;
-
-  
+    - Abra o arquivo `src/app/_services/UserService` e adicione sua chave de API do Google Books na variável `const url = ${this.baseUrl}q=${query}&key=Coloque sua key aqui`;
 
 4. **Inicie o Servidor de Desenvolvimento**
 
@@ -51,13 +49,13 @@ Esta é uma aplicação Angular para explorar e gerenciar livros buscados e favo
     ng serve
     ```
 
-    Em seguida, acesse a aplicação no navegador através do [http://localhost:4200].
+    Em seguida, acesse a aplicação no navegador através de [http://localhost:4200].
 
 ## Contribuição
 
 1. **Solicitação para Implementações**
 
-    Envie um e-mail para octavio.leite88@gmail.com pedindo autorização para participar do repositório.
+    Envie um e-mail para [octavio.leite88@gmail.com](mailto:octavio.leite88@gmail.com) pedindo autorização para participar do repositório.
 
 2. **Após a Aprovação da Solicitação**
 
@@ -73,7 +71,46 @@ Esta é uma aplicação Angular para explorar e gerenciar livros buscados e favo
 
     - Adicione as novas funcionalidades e faça as correções necessárias no arquivo `README.md`.
 
+---
+
+## Sugestões de Melhorias Futuras
+
+1. **Autenticação e Sincronização em Nuvem**:
+   - Implementar uma autenticação com login (por exemplo, Firebase Authentication ou OAuth) e sincronizar os dados na nuvem para que o usuário possa acessar seus favoritos de qualquer dispositivo.
+   - **Benefício**: Maior confiabilidade e acessibilidade aos dados.
+
+2. **Cache de Resultados de Pesquisa**:
+   - Armazenar os resultados de pesquisas repetidas em cache para evitar múltiplas requisições à API e melhorar a performance.
+   - **Benefício**: Redução do tempo de resposta e menos consumo de recursos da API.
+
+3. **Paginação de Resultados de Pesquisa**:
+   - Implementar paginação ou "infinite scroll" para exibir grandes volumes de resultados de pesquisa de forma mais organizada.
+   - **Benefício**: Melhoria na usabilidade e organização dos resultados.
+
+4. **Sistema de Avaliação de Livros pelos Usuários**:
+   - Permitir que os usuários avaliem os livros e deixem comentários sobre suas leituras.
+   - **Benefício**: Engajamento maior e criação de uma comunidade ativa.
+
+5. **Sugestões de Livros Baseadas em Favoritos**:
+   - Implementar sugestões automáticas de livros baseadas nos favoritos do usuário, como livros do mesmo autor ou gênero.
+   - **Benefício**: Personalização da experiência de leitura.
+
+6. **Modo Offline**:
+   - Implementar um modo offline para permitir o acesso aos livros favoritados mesmo sem conexão com a internet.
+   - **Benefício**: Garantir o uso da aplicação em qualquer lugar.
+
+---
+
+## Críticas ao Desafio
+
+1. **Ausência de Especificações de Design**:
+   - Seria útil ter especificações mínimas ou um guia de design, pois a ausência de diretrizes pode levar a inconsistências visuais e de usabilidade.
+
+2. **Armazenamento Local sem Sincronização**:
+   - O uso de `localStorage` para salvar favoritos é limitado. Uma sugestão seria incentivar desde o início a utilização de armazenamento sincronizado em nuvem para maior robustez e acessibilidade.
+
+---
+
 ## Contato
 
 Para mais informações, entre em contato com [octavio.leite88@gmail.com](mailto:octavio.leite88@gmail.com).
-
